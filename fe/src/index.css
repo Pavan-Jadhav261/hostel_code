@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+
+
+/* Removes the built-in "eye" icon in Microsoft Edge & Chrome */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
