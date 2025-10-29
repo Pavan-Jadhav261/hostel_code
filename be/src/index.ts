@@ -20,11 +20,14 @@ app.use(express.json())
 app.use(cors())
 
 
-app.post("/ping",(req,res)=>{
+app.get("/ping",(req,res)=>{
     res.status(200).json({
         msg : "ping"
     })
 })
+app.head('/ping', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.post("/signup",async(req,res)=>{
     const usn = req.body.usn
