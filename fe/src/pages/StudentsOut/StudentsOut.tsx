@@ -43,15 +43,7 @@ const OutStudents = () => {
         {students.map((student, index) => (
           <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
         ))}
-         {students.map((student, index) => (
-          <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
-        ))} {students.map((student, index) => (
-          <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
-        ))} {students.map((student, index) => (
-          <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
-        ))} {students.map((student, index) => (
-          <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
-        ))}
+        
       </ul>
     </div>
   );

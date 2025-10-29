@@ -305,6 +305,5 @@ app.post("/generateQR",adminAuth, async (req, res) => {
   }
 });
 
-// Optional route for testing
 
 app.listen(3000,"0.0.0.0")
