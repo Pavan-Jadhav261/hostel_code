@@ -100,7 +100,13 @@ const Details = () => {
               text='Submit'
               OnClick={addDetails}
             />
+            <Button text = "logout" varient="secondary" isClickAble={true} OnClick={()=>{
+              localStorage.clear();
+              navigate("/")
+            }} />
           </div>
+
+          
         </div>
       </div>
     </div>
