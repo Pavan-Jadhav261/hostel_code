@@ -36,7 +36,7 @@ const ScanQr: React.FC = () => {
             console.log("Decoded text:", decodedText);
             setScannedData(decodedText);
 
-            if (decodedText === "http://localhost:3000/outing") {
+            if (decodedText === "https://hostel-code.onrender.com/outing") {
               hasScanned = true; // 👈 Lock further scans
               console.log("Match found, stopping scanner...");
 

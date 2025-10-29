@@ -21,7 +21,7 @@ if(nameVal?.trim()=="" || phoneVal?.trim()=="" || roomVal?.trim()==""){
 }
 const token = localStorage.getItem("token")
  
-    const response = await axios.post("http://localhost:3000/details",{
+    const response = await axios.post("https://hostel-code.onrender.com/details",{
         name : nameVal,
         phoneNo : phoneVal,
         roomNo : roomVal,

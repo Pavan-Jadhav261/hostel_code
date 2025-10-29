@@ -23,7 +23,7 @@ alert("input cannot be empty")
 let response;
 
   try{
- response= await axios.post("http://localhost:3000/login",{
+ response= await axios.post("https://hostel-code.onrender.com/login",{
     usn : usnVal,
     password :pwdVal
 })
