@@ -39,7 +39,7 @@ const ScanQr: React.FC = () => {
             setScannedData(decodedText);
 
             // Match your QR code link
-            if (decodedText.includes("/outing")) {
+            if (decodedText.includes("htpp://localhost:3000/outing")) {
               hasScanned = true;
               try {
                 await html5QrCode.stop();
