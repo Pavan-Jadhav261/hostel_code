@@ -20,11 +20,11 @@ app.use(express.json())
 app.use(cors())
 
 
-app.get("/ping",(req,res)=>{
-    res.status(200).json({
-        msg : "ping"
-    })
-})
+// app.get("/ping",(req,res)=>{
+//     res.status(200).json({
+//         msg : "ping"
+//     })
+// })
 app.head('/ping', (req, res) => {
   res.sendStatus(200);
 });
