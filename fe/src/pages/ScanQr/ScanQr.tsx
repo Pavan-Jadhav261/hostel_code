@@ -82,15 +82,15 @@ const ScanQr: React.FC = () => {
       <h1 className="text-xl font-bold mb-4">QR Code Scanner</h1>
       {error && <p className="text-red-600">{error}</p>}
 
-      <div id={scannerId} className="w-[320px] h-80" />
+      <div id={scannerId} className="w-[320px] h-[320px]" />
 
       {scannedData && (
         <p className="mt-4 text-sm text-gray-700">
           Scanned Data: <strong>{scannedData}</strong>
         </p>
-        
       )}
-        <Button
+
+      <Button
         text="Logout"
         varient="secondary"
         OnClick={() => {
@@ -99,8 +99,6 @@ const ScanQr: React.FC = () => {
         }}
         isClickAble={true}
       />
-    
-     
     </div>
   );
 };
