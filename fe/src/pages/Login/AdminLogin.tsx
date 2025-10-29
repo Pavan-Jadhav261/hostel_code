@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Button from '../../components/button/Button'
 import EyeIcon from '../../icons/EyeIcon'
 import axios  from 'axios'
@@ -11,7 +11,6 @@ const AdminLogin = () => {
     const navigate = useNavigate()
     const usnRef = useRef<HTMLInputElement>(null)
       const pwdRef = useRef<HTMLInputElement>(null)
-
       async function login(){
         setIsClickable(false)
   const usnVal:string | undefined = usnRef.current?.value
