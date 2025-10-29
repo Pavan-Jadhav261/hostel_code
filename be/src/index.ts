@@ -21,7 +21,7 @@ app.use(cors())
 
 
 app.post("/ping",(req,res)=>{
-    res.json({
+    res.status(200).json({
         msg : "ping"
     })
 })
