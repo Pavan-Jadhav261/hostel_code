@@ -129,6 +129,28 @@ catch(e){
 }
 })
 
+app.get("/details" , auth , async(req:auhtReq,res:Response)=>{
+const userId = req.userId
+if(!userId) {
+    res.json({
+        msg : "userID not found"
+    })
+    return;
+}
+const response = await Client.details.findFirst({
+    where:{
+        usersId : userId
+    }
+})
+const name = response?.name
+const phoneNo  = response?.phoneNo
+const roomNo = response?.roomNo
+res.json({
+    name : name,
+    phoneNo: phoneNo,
+    roomNo: roomNo
+})
+})
 
 app.post("/outing", auth , async (req : auhtReq,res : Response)=>{
     const userId = req.userId
@@ -208,6 +230,9 @@ const details = await Promise.all( outStds.map(async (val)=>{
         where:{
             usersId : val.userId
         }
+    })
+    res.json({
+        details : details
     })
 })
 )

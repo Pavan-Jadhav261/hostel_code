@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../components/button/Button'
 import { useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
   const navigate = useNavigate()
       const [isClickable, setIsClickable] = useState(true)
-  
+  useEffect(()=>{
+const token = localStorage.getItem("token")
+if(token){
+  navigate("/details")
+}
+  },[])
   function signup(){
 navigate("/signup")
   }

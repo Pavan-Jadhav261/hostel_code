@@ -113,6 +113,28 @@ app.post("/details", middleware_1.auth, async (req, res) => {
         });
     }
 });
+app.get("/details", middleware_1.auth, async (req, res) => {
+    const userId = req.userId;
+    if (!userId) {
+        res.json({
+            msg: "userID not found"
+        });
+        return;
+    }
+    const response = await Client.details.findFirst({
+        where: {
+            usersId: userId
+        }
+    });
+    const name = response?.name;
+    const phoneNo = response?.phoneNo;
+    const roomNo = response?.roomNo;
+    res.json({
+        name: name,
+        phoneNo: phoneNo,
+        roomNo: roomNo
+    });
+});
 app.post("/outing", middleware_1.auth, async (req, res) => {
     const userId = req.userId;
     const getTimeNow = (0, util_1.getTime)();
@@ -228,7 +250,7 @@ app.post("/adminLogin", async (req, res) => {
         });
     }
 });
-app.post("/generateQR", async (req, res) => {
+app.post("/generateQR", middleware_1.adminAuth, async (req, res) => {
     const data = "http://localhost:3000/outing";
     if (!data) {
         return res.status(400).json({ error: "Please provide 'data' in request body" });

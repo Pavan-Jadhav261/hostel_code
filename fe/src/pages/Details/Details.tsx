@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Button from '../../components/button/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -10,12 +10,20 @@ const Details = () => {
     const [isClickable, setIsClickable] = useState(true)
     const navigate = useNavigate()
 
+
+    useEffect(()=>{
+        const detailsExist = localStorage.getItem("detailsExits")
+        if(detailsExist == "true"){
+            navigate("/scanner")
+        }
+    },[])
 async function addDetails(){
+    localStorage.setItem("detailsExits" , "false")
            setIsClickable(prev => !prev)
-const nameVal = nameRef.current?.value
-const phoneVal = phoneRef.current?.value
-const roomVal  = roomNoRef.current?.value
-if(nameVal?.trim()=="" || phoneVal?.trim()=="" || roomVal?.trim()==""){
+        const nameVal = nameRef.current?.value
+        const phoneVal = phoneRef.current?.value
+        const roomVal  = roomNoRef.current?.value
+        if(nameVal?.trim()=="" || phoneVal?.trim()=="" || roomVal?.trim()==""){
     alert ("input cannot be empty")
     return
 }
@@ -32,6 +40,7 @@ const token = localStorage.getItem("token")
         })
         console.log(response.data.msg)
     setIsClickable(true)
+    localStorage.setItem("detailsExits" , "true")
 navigate("/scanner")
 
 }

@@ -38,6 +38,8 @@ const Qrgenerator: React.FC = () => {
           cursor: "pointer",
           fontSize: "16px",
           marginBottom: "20px",
+          border: "solid 1px black",
+          borderRadius : "10px"
         }}
       >
         Generate QR

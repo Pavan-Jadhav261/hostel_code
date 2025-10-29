@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import type { Html5QrcodeCameraScanConfig } from "html5-qrcode";
 import axios from "axios";
+import Button from "../../components/button/Button";
+import { useNavigate } from "react-router-dom";
 
 const ScanQr: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [scannedData, setScannedData] = useState<string>("");
   const scannerId = "qr-reader";
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Login first");
+      navigate("/");
+      return;
+    }
+
     const html5QrCode = new Html5Qrcode(scannerId);
     let isScannerRunning = false;
-    let hasScanned = false; // 👈 Prevents multiple triggers
+    let hasScanned = false;
 
     const config: Html5QrcodeCameraScanConfig = {
       fps: 10,
@@ -20,24 +30,16 @@ const ScanQr: React.FC = () => {
 
     const startScanner = async () => {
       try {
-        const devices = await Html5Qrcode.getCameras();
-        if (!devices || devices.length === 0) {
-          setError("No cameras found");
-          return;
-        }
-
-        const cameraId = devices[0].id;
-
         await html5QrCode.start(
-          { deviceId: { exact: cameraId } },
+          { facingMode: "environment" }, // rear camera
           config,
           async (decodedText) => {
-            if (hasScanned) return; // 👈 Ignore subsequent scans
+            if (hasScanned) return;
             console.log("Decoded text:", decodedText);
             setScannedData(decodedText);
 
             if (decodedText === "https://hostel-code.onrender.com/outing") {
-              hasScanned = true; // 👈 Lock further scans
+              hasScanned = true;
               console.log("Match found, stopping scanner...");
 
               try {
@@ -73,23 +75,30 @@ const ScanQr: React.FC = () => {
         html5QrCode.stop().then(() => console.log("Camera stopped on cleanup"));
       }
     };
-    
-  }, []);
+  }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-screen mb-30">
       <h1 className="text-xl font-bold mb-4">QR Code Scanner</h1>
       {error && <p className="text-red-600">{error}</p>}
 
-      <div className="rounded-xl overflow-hidden mr-16">
-        <div id={scannerId} className="w-[300px] h-[300px]" />
-      </div>
+      <div id={scannerId} className="w-[320px] h-[320px]" />
 
       {scannedData && (
         <p className="mt-4 text-sm text-gray-700">
           Scanned Data: <strong>{scannedData}</strong>
         </p>
       )}
+
+      <Button
+        text="Logout"
+        varient="secondary"
+        OnClick={() => {
+          localStorage.clear();
+          navigate("/");
+        }}
+        isClickAble={true}
+      />
     </div>
   );
 };

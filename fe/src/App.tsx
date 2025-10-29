@@ -8,9 +8,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Details from './pages/Details/Details'
 import Qrgenerator from './pages/qr generator/Qrgenerator'
 import ScanQr from './pages/ScanQr/ScanQr'
-
+import { Analytics } from '@vercel/analytics/react';
+import OutStudents from './pages/StudentsOut/StudentsOut'
+import AdminLogin from './pages/Login/AdminLogin'
 const App = () => {
   return (
+    <>
+
     <BrowserRouter>
     <Routes>
       <Route path='/' element = {<LandingPage/>} />
@@ -19,8 +23,12 @@ const App = () => {
       <Route path='/details' element = {<Details/>} />
       <Route path='/scanner' element={<ScanQr/>}/>
       <Route path = "/generateQr" element={<Qrgenerator/>}/>
+      <Route path='/outStudents' element = {<OutStudents/>}/>
+      <Route path='/adminLogin' element={<AdminLogin/>} />
       </Routes>
       </BrowserRouter>
+        <Analytics />
+        </>
   )
 }
 

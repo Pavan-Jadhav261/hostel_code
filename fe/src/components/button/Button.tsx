@@ -15,9 +15,9 @@ const styles = {
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className={`${styles[props.varient]} ${
+      className={props.varient == "primary" ?`${styles[props.varient]} ${
         props.isClickAble ? "" : "opacity-50 cursor-not-allowed"
-      }`}
+      }`:`${styles[props.varient]}`}
       disabled={!props.isClickAble}
       onClick={props.OnClick}
     >
