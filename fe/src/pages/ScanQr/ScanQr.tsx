@@ -105,7 +105,7 @@ const ScanQr: React.FC = () => {
           varient="secondary"
           OnClick={() => {
             localStorage.clear();
-            navigate("/");
+            navigate("/login");
           }}
           isClickAble={true}
         />

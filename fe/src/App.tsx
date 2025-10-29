@@ -11,6 +11,7 @@ import ScanQr from './pages/ScanQr/ScanQr'
 import { Analytics } from '@vercel/analytics/react';
 import OutStudents from './pages/StudentsOut/StudentsOut'
 import AdminLogin from './pages/Login/AdminLogin'
+import ScanningStatus from './pages/ScanningStatus/ScanningStatus'
 const App = () => {
   return (
     <>
@@ -25,6 +26,7 @@ const App = () => {
       <Route path = "/generateQr" element={<Qrgenerator/>}/>
       <Route path='/outStudents' element = {<OutStudents/>}/>
       <Route path='/adminLogin' element={<AdminLogin/>} />
+      <Route path='/scanStatus' element = {<ScanningStatus/>}/>
       </Routes>
       </BrowserRouter>
         <Analytics />
