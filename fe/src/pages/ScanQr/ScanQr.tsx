@@ -31,30 +31,39 @@ const ScanQr: React.FC = () => {
     const startScanner = async () => {
       try {
         await html5QrCode.start(
-          { facingMode: { exact: "environment" } }, // Prefer back camera on mobile
+          { facingMode: "environment" }, // back camera (works on more devices)
           config,
           async (decodedText) => {
-            if (hasScanned) return;
+            if (hasScanned) return; // prevent multiple triggers
+
             console.log("✅ Decoded text:", decodedText);
             setScannedData(decodedText);
 
-            // Match your QR code link
-            if (decodedText.includes("htpp://localhost:3000/outing")) {
+            const outingUrl = "https://hostel-code.onrender.com/outing";
+
+            // Check if scanned URL matches the outing link
+            if (decodedText.trim() === outingUrl) {
               hasScanned = true;
+              console.log("✅ Match found! Stopping scanner...");
+              
               try {
                 await html5QrCode.stop();
+                console.log("📷 Scanner stopped");
+
                 const token = localStorage.getItem("token");
-                const res = await axios.post("https://hostel-code.onrender.com/outing", {}, { headers: { token } });
+                const res = await axios.post(outingUrl, {}, { headers: { token } });
+
                 console.log("✅ POST success:", res.data);
                 alert("Outing marked successfully ✅");
-                
               } catch (err: any) {
                 console.error("❌ Error sending request:", err);
                 setError("Failed to send request");
               }
             }
           },
-          (scanErr) => console.log("Scanning...", scanErr)
+          (scanErr) => {
+            console.log("Scanning...", scanErr);
+          }
         );
 
         console.log("📷 Camera started");
@@ -66,7 +75,6 @@ const ScanQr: React.FC = () => {
 
     startScanner();
 
-    // Cleanup camera when leaving page
     return () => {
       html5QrCode.stop().catch(() => {});
     };
@@ -78,9 +86,7 @@ const ScanQr: React.FC = () => {
         QR Code Scanner
       </h1>
 
-      {error && (
-        <p className="text-red-600 text-sm mb-3 text-center">{error}</p>
-      )}
+      {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
 
       <div
         id={scannerId}
@@ -93,7 +99,6 @@ const ScanQr: React.FC = () => {
         </p>
       )}
 
-      {/* ✅ Visible logout button on mobile */}
       <div className="fixed bottom-6 left-0 right-0 flex justify-center px-4">
         <Button
           text="Logout"
