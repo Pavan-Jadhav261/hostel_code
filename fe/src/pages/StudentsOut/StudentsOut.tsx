@@ -14,7 +14,7 @@ const OutStudents = () => {
         });
 console.log(res)
        
-        setResponse(res.data); 
+        setResponse(res.data.msg); 
       } catch (err) {
         console.error(err);
       }
