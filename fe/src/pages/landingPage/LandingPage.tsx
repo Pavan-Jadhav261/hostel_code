@@ -7,7 +7,7 @@ const LandingPage = () => {
       const [isClickable, setIsClickable] = useState(true)
   useEffect(()=>{
 const token = localStorage.getItem("token")
-if(token){
+if(token != "undefined"){
   navigate("/details")
 }
   },[])

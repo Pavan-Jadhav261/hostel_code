@@ -8,7 +8,12 @@ const Qrgenerator: React.FC = () => {
   const generateQR = async () => {
   
     try {
-      const response = await axios.post("https://hostel-code.onrender.com/generateQR");
+      const token = localStorage.getItem("token")
+      const response = await axios.post("https://hostel-code.onrender.com/generateQR",{},{
+        headers:{
+          token : token
+        }
+      });
       setQrImageUrl(response.data.qrImageUrl);
     } catch (error) {
       console.error("Error generating QR:", error);
