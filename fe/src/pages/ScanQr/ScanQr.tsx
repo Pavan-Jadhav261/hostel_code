@@ -39,7 +39,7 @@ const ScanQr: React.FC = () => {
             console.log("✅ Decoded text:", decodedText);
             setScannedData(decodedText);
 
-            const outingUrl = "https://hostel-code.onrender.com/outing";
+            const outingUrl = "http://localhost:3000/outing";
 
             // Check if scanned URL matches the outing link
             if (decodedText.trim() === outingUrl) {
@@ -51,7 +51,7 @@ const ScanQr: React.FC = () => {
                 console.log("📷 Scanner stopped");
 
                 const token = localStorage.getItem("token");
-                const res = await axios.post(outingUrl, {}, { headers: { token } });
+                const res = await axios.post("https://hostel-code.onrender.com/outing", {}, { headers: { token } });
 
                 console.log("✅ POST success:", res.data);
                 alert("Outing marked successfully ✅");
