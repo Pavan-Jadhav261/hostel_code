@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Qrgenerator: React.FC = () => {
-  const [data, setData] = useState<string>("");
+ 
   const [qrImageUrl, setQrImageUrl] = useState<string>("");
 
   const generateQR = async () => {
-    if (!data.trim()) {
-      alert("Please enter some data!");
-      return;
-    }
-
+  
     try {
-      const response = await axios.post("http://localhost:3000/generateQR", { data });
+      const response = await axios.post("http://localhost:3000/generateQR");
       setQrImageUrl(response.data.qrImageUrl);
     } catch (error) {
       console.error("Error generating QR:", error);
@@ -26,23 +22,14 @@ const Qrgenerator: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent:"center",
         marginTop: "50px",
+        height:"screen",
+        width : "full"
       }}
     >
       <h1>Backend QR Code Generator</h1>
 
-      <input
-        type="text"
-        placeholder="Enter data for QR"
-        value={data}
-        onChange={(e) => setData(e.target.value)}
-        style={{
-          marginBottom: "20px",
-          padding: "10px",
-          width: "300px",
-          fontSize: "16px",
-        }}
-      />
 
       <button
         onClick={generateQR}

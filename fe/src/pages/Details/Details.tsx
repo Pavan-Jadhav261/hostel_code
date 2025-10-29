@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react'
 import Button from '../../components/button/Button'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Details = () => {
         const nameRef = useRef<HTMLInputElement>(null)
         const phoneRef = useRef<HTMLInputElement>(null)
         const roomNoRef = useRef<HTMLInputElement>(null)
     const [isClickable, setIsClickable] = useState(true)
+    const navigate = useNavigate()
 
 async function addDetails(){
            setIsClickable(prev => !prev)
@@ -30,7 +32,7 @@ const token = localStorage.getItem("token")
         })
         console.log(response.data.msg)
     setIsClickable(true)
-
+navigate("/scanner")
 
 }
 

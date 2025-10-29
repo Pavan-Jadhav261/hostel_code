@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import type { Html5QrcodeCameraScanConfig } from "html5-qrcode";
+import axios from "axios";
 
-const QRScanner: React.FC = () => {
-  const [scannedData, setScannedData] = useState("");
+const ScanQr: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
+  const [scannedData, setScannedData] = useState<string>("");
   const scannerId = "qr-reader";
 
-  // Keep a reference to the Html5Qrcode instance outside of useEffect
-  let html5QrCode: Html5Qrcode | null = null;
-  let isScannerRunning = false;
-
   useEffect(() => {
-    // Prevent multiple instances
-    if (html5QrCode) return;
-
-    html5QrCode = new Html5Qrcode(scannerId);
+    const html5QrCode = new Html5Qrcode(scannerId);
+    let isScannerRunning = false;
+    let hasScanned = false; // 👈 Prevents multiple triggers
 
     const config: Html5QrcodeCameraScanConfig = {
       fps: 10,
@@ -31,10 +27,34 @@ const QRScanner: React.FC = () => {
         }
 
         const cameraId = devices[0].id;
-        await html5QrCode!.start(
+
+        await html5QrCode.start(
           { deviceId: { exact: cameraId } },
           config,
-          (decodedText) => setScannedData(decodedText),
+          async (decodedText) => {
+            if (hasScanned) return; // 👈 Ignore subsequent scans
+            console.log("Decoded text:", decodedText);
+            setScannedData(decodedText);
+
+            if (decodedText === "http://localhost:3000/outing") {
+              hasScanned = true; // 👈 Lock further scans
+              console.log("Match found, stopping scanner...");
+
+              try {
+                await html5QrCode.stop();
+                isScannerRunning = false;
+
+                const token = localStorage.getItem("token");
+                await axios.post(decodedText, {}, {
+                  headers: { token },
+                });
+                console.log("POST request sent successfully");
+              } catch (err) {
+                console.error("Error:", err);
+                setError("Failed to send request");
+              }
+            }
+          },
           (err) => console.log("Scanning...", err)
         );
 
@@ -49,28 +69,29 @@ const QRScanner: React.FC = () => {
     startScanner();
 
     return () => {
-      if (html5QrCode && isScannerRunning) {
-        html5QrCode
-          .stop()
-          .then(() => console.log("Camera stopped"))
-          .catch(() => {});
+      if (isScannerRunning) {
+        html5QrCode.stop().then(() => console.log("Camera stopped on cleanup"));
       }
     };
+    
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-red-300  w-full h-screen">
-      <h1>QR Code Scanner</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div className="rounded-full w-70 h-70 ">
-      <div
-        id={scannerId}
-        className="w-100 h-100 rounded-full"
-      ></div>
+    <div className="flex flex-col items-center justify-center w-full h-screen">
+      <h1 className="text-xl font-bold mb-4">QR Code Scanner</h1>
+      {error && <p className="text-red-600">{error}</p>}
+
+      <div className="rounded-xl overflow-hidden mr-16">
+        <div id={scannerId} className="w-[300px] h-[300px]" />
       </div>
-      <p style={{ marginTop: 20, fontWeight: "bold" }}>Scanned Data: {scannedData || "None yet"}</p>
+
+      {scannedData && (
+        <p className="mt-4 text-sm text-gray-700">
+          Scanned Data: <strong>{scannedData}</strong>
+        </p>
+      )}
     </div>
   );
 };
 
-export default QRScanner;
+export default ScanQr;

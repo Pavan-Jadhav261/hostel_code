@@ -9,6 +9,7 @@ import Details from './pages/Details/Details'
 import { QrReader } from 'react-qr-reader'
 import QrScanner from './pages/ScanQr/ScanQr'
 import Qrgenerator from './pages/qr generator/Qrgenerator'
+import ScanQr from './pages/ScanQr/ScanQr'
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/login' element = {<Login/>} />
       <Route path='/details' element = {<Details/>} />
-      <Route path='/scanner' element={<QrScanner/>}/>
+      <Route path='/scanner' element={<ScanQr/>}/>
       <Route path = "/generateQr" element={<Qrgenerator/>}/>
       </Routes>
       </BrowserRouter>

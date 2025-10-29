@@ -229,7 +229,7 @@ app.post("/adminLogin", async (req, res) => {
     }
 });
 app.post("/generateQR", async (req, res) => {
-    const { data } = req.body;
+    const data = "http://localhost:3000/outing";
     if (!data) {
         return res.status(400).json({ error: "Please provide 'data' in request body" });
     }
