@@ -44,9 +44,10 @@ const ScanQr: React.FC = () => {
               try {
                 await html5QrCode.stop();
                 const token = localStorage.getItem("token");
-                const res = await axios.post(decodedText, {}, { headers: { token } });
+                const res = await axios.post("https://hostel-code.onrender.com/outing", {}, { headers: { token } });
                 console.log("✅ POST success:", res.data);
                 alert("Outing marked successfully ✅");
+                
               } catch (err: any) {
                 console.error("❌ Error sending request:", err);
                 setError("Failed to send request");
