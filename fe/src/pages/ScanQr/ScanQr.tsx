@@ -89,7 +89,7 @@ const ScanQr: React.FC = () => {
           Scanned Data: <strong>{scannedData}</strong>
         </p>
       )}
-      <div className="mt-30">
+      <div className="mt-100">
       <Button
         text="Logout"
         varient="secondary"
