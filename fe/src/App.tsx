@@ -6,8 +6,6 @@ import SignUp from './pages/SignUp/SignUp'
 import Login from './pages/Login/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Details from './pages/Details/Details'
-import { QrReader } from 'react-qr-reader'
-import QrScanner from './pages/ScanQr/ScanQr'
 import Qrgenerator from './pages/qr generator/Qrgenerator'
 import ScanQr from './pages/ScanQr/ScanQr'
 
