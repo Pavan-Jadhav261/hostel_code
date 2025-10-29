@@ -20,7 +20,7 @@ const OutStudents = () => {
         const res = await axios.get("https://hostel-code.onrender.com/outStudents", {
           headers: { token },
         });
-
+        alert(res.data.msg)
         setStudents(res.data.msg || []); 
       } catch (err) {
         console.error(err);
@@ -34,6 +34,7 @@ const OutStudents = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
+  console.log(students)
   if (students.length === 0) return <p className="text-2xl text-black">No students are currently out.</p>;
 
   return (
