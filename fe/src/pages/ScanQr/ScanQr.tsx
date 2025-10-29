@@ -95,7 +95,7 @@ const ScanQr: React.FC = () => {
 
       {scannedData && (
         <p className="mt-4 text-sm text-gray-700 text-center break-all px-3">
-          Scanned Data: <strong>{scannedData}</strong>
+          Scanned Data Status : Successfull
         </p>
       )}
 
