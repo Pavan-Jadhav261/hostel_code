@@ -17,7 +17,7 @@ const Details = () => {
         if (!token) return
 
         const res = await axios.get("https://hostel-code.onrender.com/details", {
-          headers: { token }
+          headers: { token:token }
         })
 
         // If details exist, navigate directly
@@ -54,11 +54,10 @@ const Details = () => {
           phoneNo: phoneVal,
           roomNo: roomVal,
         },
-        { headers: { token } }
+        { headers: { token:token } }
       )
 
       console.log(response.data.msg)
-      localStorage.setItem("detailsExits", "true")
       navigate("/scanner")
     } catch (err) {
       console.error("Error submitting details:", err)

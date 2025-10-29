@@ -34,7 +34,7 @@ const OutStudents = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (students.length === 0) return <p>No students are currently out.</p>;
+  
 
   return (
     <div className="h-screen w-full p-5">
@@ -43,8 +43,8 @@ const OutStudents = () => {
         {students.map((student, index) => (
           <Card name = {student.name} roomNo={student.roomNo} phoneNo={student.phoneNo}/>
         ))}
-        
       </ul>
+      {(students.length === 0)?  <p>No students are currently out.</p>:null}
     </div>
   );
 };
