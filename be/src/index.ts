@@ -287,7 +287,7 @@ let isPwdTru
 } )
 
 app.post("/generateQR",adminAuth, async (req, res) => {
-  const data  = "http://localhost:3000/outing";
+  const data  = "https://hostel-code.onrender.com/outing";
 
   if (!data) {
     return res.status(400).json({ error: "Please provide 'data' in request body" });
