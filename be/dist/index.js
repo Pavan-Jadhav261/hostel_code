@@ -17,6 +17,16 @@ const Client = new client_1.PrismaClient();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.get("/ping", (req, res) => {
+    res.status(200).json({
+        msg: "ping"
+    });
+});
+app.head('/ping', (req, res) => {
+    res.status(200).json({
+        msg: "ping"
+    });
+});
 app.post("/signup", async (req, res) => {
     const usn = req.body.usn;
     const password = req.body.password;
@@ -209,6 +219,9 @@ app.get("/outStudents", middleware_1.adminAuth, async (req, res) => {
                 usersId: val.userId
             }
         });
+        res.json({
+            details: details
+        });
     }));
     res.json({
         msg: details
@@ -266,6 +279,5 @@ app.post("/generateQR", middleware_1.adminAuth, async (req, res) => {
         res.status(500).json({ error: "Failed to generate QR code" });
     }
 });
-// Optional route for testing
 app.listen(3000, "0.0.0.0");
 //# sourceMappingURL=index.js.map
