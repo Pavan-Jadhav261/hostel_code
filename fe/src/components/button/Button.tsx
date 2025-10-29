@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const styles = {
-  primary: "bg-blue-500 text-white rounded-full h-12 w-35 text-center",
+  primary: "bg-blue-500 py-2 text-white rounded-full h-12 w-35 text-center",
   secondary: "bg-gray-300 text-black rounded-xl h-10 w-30 text-center",
 }
 
