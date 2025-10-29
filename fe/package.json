@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@blackbox-vision/react-qr-reader": "^5.0.0",
+ 
     "@tailwindcss/vite": "^4.1.15",
     "@types/axios": "^0.9.36",
     "axios": "^1.12.2",
