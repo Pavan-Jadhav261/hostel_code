@@ -19,6 +19,13 @@ app.use(express.json())
 
 app.use(cors())
 
+
+app.get("/",(req,res)=>{
+    res.json({
+        msg : "ping"
+    })
+})
+
 app.post("/signup",async(req,res)=>{
     const usn = req.body.usn
     const password  = req.body.password
